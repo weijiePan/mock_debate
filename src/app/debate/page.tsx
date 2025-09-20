@@ -4,7 +4,7 @@ import Textbox from "../components/Textbox";
 import { supabase } from "../../../supabase";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {X} from 'lucide-react'
+import {X} from 'lucide-react';
 
 export default function debate(){
   let [userInput, changeUserInput]:[string[], Function] = useState([]); 
