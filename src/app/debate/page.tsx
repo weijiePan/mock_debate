@@ -26,7 +26,7 @@ export default function debate(){
     };
 
     checkUser();
-  }, []);
+  }, [router]);
     
     
     
