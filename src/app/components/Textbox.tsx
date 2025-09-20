@@ -3,7 +3,7 @@ export default function Textbox({text}:{text:string}){
     return(<div>
         <p>
             {text}
-            <p>texttt</p>
+            <button></button>
         </p>
     </div>)
 }
