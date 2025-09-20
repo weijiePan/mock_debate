@@ -17,12 +17,12 @@ export default function debate(){
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push("/login"); // 🚨 redirect if no user
-        return
-      }
-      setUserId(user.id)
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+        router.push("/login");
+        return;
+        }
+        setUserId(session.user.id);
     };
 
     checkUser();
