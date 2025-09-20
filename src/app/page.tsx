@@ -1,11 +1,19 @@
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
-import AudioInput from "./components/AudioInput";
+import useAudioInput from "./components/useAudioInput";
 export default function Home() {
+  const {startRecorder, stopRecorder} = useAudioInput();
+  
   return (
     <div>
-      <p className="bg-amber-900 text-5xl">hello</p>
-      <AudioInput></AudioInput>
+      <button onClick={()=>{
+        startRecorder();
+      }}>start</button>
+      <button onClick={()=>{
+        console.log(stopRecorder());
+      }}>stop</button>
+      
     </div>
     
   );
