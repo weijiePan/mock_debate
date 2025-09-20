@@ -4,7 +4,9 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div>
-      <p className="bg-amber-900 text-5xl">hello</p>
+      <div className="bg-amber-300 text-xl">
+        hfkdjsfjsdik
+      </div>
     </div>
     
   );

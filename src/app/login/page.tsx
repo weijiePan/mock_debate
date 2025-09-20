@@ -23,12 +23,31 @@ export default function Login() {
 
     return(
         <div>
-          <div className="bg-amber-300">
-            username<input value={email} onChange={(e) => setEmail(e.target.value)}/>
-            password <input value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <button onClick={handleLogin}>
-                Log in 
-            </button>
+          <h1 className='text-2xl flex !mt-10 justify-center'>Log in</h1>
+
+          <div className='!mt-40 h-65 !p-5 w-1/5 !mx-auto !shadow-xl !space-y-4 rounded-2xl'>
+            <div className=''>
+              <span className='text-xl'>Email: <br /></span>
+              <input 
+              className='border-1 rounded-lg w-full h-8 !p-2'
+              />
+            </div>
+
+            <div className=''>
+              <span className='text-xl'>Password: <br /></span>
+              <input 
+              className='border-1 rounded-lg w-full h-8 !p-2'
+              />
+            </div>
+
+            <div className='!mt-10 flex justify-center'>
+              <button onClick={() => handleLogin()} className='w-40 bg-green-500 rounded-xl h-8 cursor-pointer'>
+                Log in
+              </button>
+            </div>
+          </div>
+          <div className='h-40'>
+
           </div>
         </div>
     )
