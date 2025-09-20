@@ -17,7 +17,7 @@ export default function debate(){
             }}>submit</button>
             
         </form>
-        <Textbox text="sdafksdf"></Textbox>
+        <Textbox text="Your new text here"></Textbox>
         
     </>
 }
