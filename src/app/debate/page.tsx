@@ -1,6 +1,6 @@
 'use client'
 import {use, useState} from "react";
-
+import Textbox from "../components/Textbox";
 export default function debate(){
     let [userInput, changeUserInput]:[string[], Function] = useState([]); 
     let [aiOutput, changeAiOutput]:[string[], Function] = useState([]); 
@@ -15,6 +15,9 @@ export default function debate(){
                 e.preventDefault();
                 //calls function with the input
             }}>submit</button>
+            
         </form>
+        <Textbox text="sdafksdf"></Textbox>
+        
     </>
 }
