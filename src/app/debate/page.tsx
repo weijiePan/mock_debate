@@ -5,7 +5,16 @@ import Textbox from "../components/Textbox";
 export default function debate(){
     let [userInput, changeUserInput]:[string[], Function] = useState([]); 
     let [aiOutput, changeAiOutput]:[string[], Function] = useState([]); 
-    return<>
+    return(<>
+
+        <div className="bg-red-500 text-white p-10 text-4xl">
+            Tailwind Test
+        </div>
+
+
+
+
+
         <form>
             <input onChange={
                 (e)=>{
@@ -21,4 +30,5 @@ export default function debate(){
         <Textbox text=""></Textbox>
         
     </>
+    )
 }

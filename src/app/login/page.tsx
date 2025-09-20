@@ -23,11 +23,11 @@ export default function Login() {
 
     return(
         <div>
-          <div>
+          <div className="bg-green-500">
             username<input value={email} onChange={(e) => setEmail(e.target.value)}/>
             password <input value={password} onChange={(e) => setPassword(e.target.value)}/>
             <button onClick={handleLogin}>
-                Sign up 
+                Log in 
             </button>
           </div>
         </div>

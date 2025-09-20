@@ -1,5 +1,6 @@
 'use client'
 
+import '@/app/globals.css'
 import { useState } from "react"
 import { supabase } from "../../../supabase"
 
@@ -44,7 +45,8 @@ export default function Login() {
 
     return(
         <div>
-          <div>
+          <div className='bg-amber-300'>
+            
             email<input value={email} onChange={(e) => setEmail(e.target.value)}/>
             password <input value={password} onChange={(e) => setPassword(e.target.value)}/>
             <button onClick={handleSignup}>
