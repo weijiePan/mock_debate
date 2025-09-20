@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import { supabase } from "../../../supabase"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const router = useRouter()
+    
     const handleLogin = async() => {
         const { data, error } = await supabase.auth.signInWithPassword({
             email,
@@ -15,6 +17,9 @@ export default function Login() {
             // Optional: you can pass user_metadata like username
             // options: { data: { username: 'yourUsername' } }
         })
+        if (data) {
+          router.push('/debate')
+        }
         
 
 
