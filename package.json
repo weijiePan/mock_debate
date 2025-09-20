@@ -15,12 +15,14 @@
     "postcss": "^8.5.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-speech-recognition": "^4.0.1",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-speech-recognition": "^3.9.6",
     "typescript": "^5"
   }
 }
