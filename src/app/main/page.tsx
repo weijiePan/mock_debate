@@ -9,6 +9,7 @@ import {motion} from 'framer-motion'
 import { getRebuttal, getRating } from "./aiMessageUtil";
 import { b } from "framer-motion/client";
 import useAudioInput from "../components/useAudioInput";
+import { start } from "repl";
 
 export default function debate(){
   let [userInput, changeUserInput]:[string, Function] = useState(""); 
@@ -91,13 +92,17 @@ export default function debate(){
               <div className="mb-5 !pt-4 flex justify-center items-center">
                     
                 <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer" onClick={()=>{
-                    
+                    if(isRecordOn){
+                      changeUserInput(stopRecorder())
+                    }else{
+                      startRecorder();
+                    }
                   }}>
                   <Mic className="text-black" />
                 </div>
                   <input 
                 className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
-                
+                value={userInput}
                 onChange={(e)=>{changeUserInput(e.target.value)}}
                  
                 />
