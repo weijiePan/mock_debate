@@ -171,7 +171,7 @@ export default function debate(){
 
       <div>
 
-        <div className="fixed inset-0 flex items-center justify-center z-1">
+        <div className="fixed inset-0 flex items-center justify-center z-10">
           <div className="w-120 h-180 rounded-xl border-4 border-black bg-white transition">
             {renderCurrent()}
           </div>
