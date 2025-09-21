@@ -1,0 +1,163 @@
+'use client'
+import {use, useState} from "react";
+import Textbox from "../components/Textbox";
+import { supabase } from "../../../supabase";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {X, Mic} from 'lucide-react';
+import {motion} from 'framer-motion'
+
+export default function debate(){
+  let [userInput, changeUserInput]:[string[], Function] = useState([]); 
+  let [aiOutput, changeAiOutput]:[string[], Function] = useState([]); 
+    
+  const router = useRouter();
+
+  const [userId, setUserId] = useState('')
+  const [history, setHistory] = useState(false)
+  
+  const [current, setCurrent] = useState('yourself')
+  const [left, setLeft] = useState("judge")
+  const [right, setRight] = useState("opponent")
+   
+  const clickRight = () => {
+    if (current == 'yourself') {
+      setCurrent('opponent')
+    }
+    if (current == 'opponent') {
+      setCurrent('judge')
+    }
+    if (current == "judge") {
+      setCurrent('yourself')
+    }
+  }
+
+  const clickLeft = () => {
+    if (current == 'yourself') {
+      setCurrent('judge')
+    }
+    if (current == 'opponent') {
+      setCurrent('yourself')
+    }
+    if (current == "judge") {
+      setCurrent('opponent')
+    }
+  }
+
+  const renderCurrent = () => {
+    switch (current) {
+      case "yourself":
+        return (
+          <div>
+            <div className="flex justify-center !mt-5">
+              <span className="text-3xl">Yourself</span>
+            </div>
+
+
+            <div className="flex flex-col justify-end ">
+              
+
+              <div className="!mt-120 "></div>
+
+              <div className="mb-5 flex justify-center">
+                <div className="w-12 h-12 border-2 rounded-full !mr-2 flex justify-center items-center cursor-pointer">
+                  <Mic />
+                </div>
+
+                <input 
+                placeholder="Your argument here..."
+                className="border-2 w-60 h-12 rounded-full !p-4"
+                />
+                
+                <div className="w-12 h-12 border-2 rounded-full !ml-2 flex justify-center items-center cursor-pointer">
+                  <span className="-translate-y-0.5 text-xl">→</span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        )
+      case "judge":
+        return (
+          <div>
+            <div className="flex justify-center !mt-5">
+              <span className="text-3xl">Judge</span>
+            </div>
+          </div>
+        )
+      case "opponent":
+        return (
+          <div>
+            <div className="flex justify-center !mt-5">
+              <span className="text-3xl">Opponent</span>
+            </div>
+          </div>
+        )
+      default:
+        return <></>
+    }
+  }
+    
+  return(
+
+    
+
+    <div className="">
+      
+      <div className="absolute top-5 right-5">
+        <button className="bg-black w-20 h-8 text-white rounded-xl">
+          History
+        </button>
+      </div>
+
+
+      <div>
+
+        <div className="fixed inset-0 flex items-center justify-center z-1">
+          <div className="w-120 h-180 rounded-xl border-4 bg-white transition">
+            {renderCurrent()}
+          </div>
+        </div>
+
+        <div className="fixed inset-0 flex items-center justify-center !ml-100">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4">
+
+          </div>
+        </div>
+
+        <div className="fixed inset-0 flex items-center justify-center !ml-175 z-10">
+          <div onClick={clickRight} className="w-0 h-0 hover:translate-x-2 duration-200 transition-transform
+            border-t-[20px] border-t-transparent
+            border-b-[20px] border-b-transparent
+            border-l-[30px] border-l-blue-500"> 
+
+
+          </div>
+        </div>
+
+        <div className="fixed inset-0 flex items-center justify-center !mr-100">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4">
+
+          </div>
+        </div>
+
+        <div className="fixed inset-0 flex items-center justify-center !mr-175 z-10">
+          <div onClick={clickLeft} className="w-0 h-0 hover:-translate-x-2 duration-200 transition-transform
+            border-t-[20px] border-t-transparent
+            border-b-[20px] border-b-transparent
+            border-r-[30px] border-r-blue-500"> 
+
+
+          </div>
+        </div>
+
+        <div className="absolute top-15 right-5 !mx-auto">
+          <button className="bg-green-500 rounded-full w-32 h-10">
+            New debate
+          </button>
+        </div>
+
+      </div>
+    </div>
+  )
+}
