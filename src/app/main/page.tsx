@@ -29,7 +29,38 @@ export default function debate(){
   const [current, setCurrent] = useState('yourself')
   const [left, setLeft] = useState("judge")
   const [right, setRight] = useState("opponent")
-   
+
+  const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);
+  const [typingIndex, setTypingIndex] = useState(0); // char index in the current message
+
+   useEffect(() => {
+    console.log("using effect")
+    if (opponentHistory.length === 0) return;
+
+    const currentMessage = opponentHistory[opponentHistory.length - 1];
+
+    // if we already displayed all messages, start typing the latest
+    if (displayedTexts.length < opponentHistory.length) {
+      const interval = setInterval(() => {
+        setTypingIndex((prev) => {
+          if (prev < currentMessage.length) return prev + 1;
+
+          // finished typing: push full message to displayedTexts
+          clearInterval(interval);
+          setDisplayedTexts(opponentHistory);
+          console.log(opponentHistory)
+          return prev;
+        });
+      }, 40); // typing speed (ms per character)
+
+      return () => clearInterval(interval);
+    }
+  }, [opponentHistory, displayedTexts]);
+
+   const fullyTyped = displayedTexts.slice(0, -2);
+   const currentMsg = opponentHistory[displayedTexts.length - 1] || "";
+   const typingMessage = current.slice(0, typingIndex);
+
   const clickRight = () => {
     if (current == 'yourself') {
       setCurrent('opponent')
@@ -54,8 +85,16 @@ export default function debate(){
     }
   }
 
-  const array = ['hello', 'this is an important message', 'hello again', 'fjdisjijdsniufjhuid hfos jdaiofjjfjodhsijfhdsuijfhdsuifhdsui hujdfhujhdfjdhfjhdsjfhdsjfhudishnfujdsn h ujfhdufhdsuhfjdsfhkdshfjdsknbfdjsnfdjsbn ufhdsufhdsjnfkdsnfjkdsn fknds fkdsbfijndsijfbndsjibf jdks fkdsnf kjhsd fhsjdkhf', 'hfjdsnjfhdsjuahfnjdskafjudshfudsh uifhuid shfijdsjfhdsijfhdsjfdnsfkm nsdjf ndsjnfdjshf sjhn', 'f hfudjshfjudshfukdshfusdhfi bsdnjf ndsjubf sdujbfju dsbfj dsfkshjufhß', 'fds']
+  function reverseArray(arr: string[]) {
+    const result: string[] = [];
+    for (let i = arr.length - 1; i >= 0; i--) {
+        result.push(arr[i]);
+    }
+    return result;
+  }
 
+  const array = ['hello', 'this is an important message', 'hello again', 'fjdisjijdsniufjhuid hfos jdaiofjjfjodhsijfhdsuijfhdsuifhdsui hujdfhujhdfjdhfjhdsjfhdsjfhudishnfujdsn h ujfhdufhdsuhfjdsfhkdshfjdsknbfdjsnfdjsbn ufhdsufhdsjnfkdsnfjkdsn fknds fkdsbfijndsijfbndsjibf jdks fkdsnf kjhsd fhsjdkhf', 'hfjdsnjfhdsjuahfnjdskafjudshfudsh uifhuid shfijdsjfhdsijfhdsjfdnsfkm nsdjf ndsjnfdjshf sjhn', 'f hfudjshfjudshfukdshfusdhfi bsdnjf ndsjubf sdujbfju dsbfj dsfkshjufhß', 'fds', "new one"]
+  const reversed = reverseArray(array)
   const renderCurrent = () => {
     switch (current) {
       case "yourself":
@@ -121,21 +160,44 @@ export default function debate(){
           
             </div>
             <div>
-              <div className = "judgeHistory">
+              <div className="h-140 !p-2 !px-6 !mt-3 !space-y-2 overflow-y-auto ">
                 {
                   judgeHistory.map(obj=>
                     <div>
-                      <div className = "rhetoric">
-                        <p>{`rhetoric: ${obj.rhetoric.score}`}</p>
-                        <p>{`explanation: ${obj.rhetoric.reasoning}`}</p>
-                      </div>
-                      <div className = "logic">
-                        <p>{`logic: ${obj.logic.score}`}</p>
-                        <p>{`explanation: ${obj.logic.reasoning}`}</p>
-                      </div>
-                      <div className = "accuracy">
-                        <p>{`logic: ${obj.accuracy.score}`}</p>
-                        <p>{`explanation: ${obj.accuracy.reasoning}`}</p>
+                      <div className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md">
+                        <div>
+                          <span className={
+                            obj.rhetoric.score >= 7 
+                            ? "text-green-500"
+                            : obj.rhetoric.score >= 5
+                            ? "text-yellow-500"
+                            : "text-red-500"
+                          }
+                          >rhetoric: {obj.rhetoric.score}</span> <br />
+                          <span className="text-white">{`Explanation: ${obj.rhetoric.reasoning}`}</span>
+                        </div>
+                        <div>
+                          <span className={
+                            obj.logic.score >= 7 
+                            ? "text-green-500"
+                            : obj.logic.score >= 5
+                            ? "text-yellow-500"
+                            : "text-red-500"
+                          }
+                          >logic: {obj.logic.score}</span> <br />
+                          <span className="text-white">{`Explanation: ${obj.logic.reasoning}`}</span>
+                        </div>
+                        <div>
+                          <span className={
+                            obj.accuracy.score >= 7 
+                            ? "text-green-500"
+                            : obj.accuracy.score >= 5
+                            ? "text-yellow-500"
+                            : "text-red-500"
+                          }
+                          >accuracy: {obj.accuracy.score}</span> <br />
+                          <span className="text-white">{`Explanation: ${obj.accuracy.reasoning}`}</span>
+                        </div>
                       </div>
                     </div>
                     
@@ -152,9 +214,27 @@ export default function debate(){
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Opponent</span>
             </div>
-            <div className = "opponentHistory">
-               {opponentHistory.map(text=><p>{text}</p>)}
-              </div>
+            <div className="">
+              <img src="CharacterSprite.PNG" className="!translate-x-2"/>
+            </div>
+            <div className="h-70 !p-2 !px-6 !space-y-2 overflow-y-auto">
+                {fullyTyped.map((text, idx) => (
+                    <div
+                    key={idx}
+                    className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
+                    >
+                    <span>{text}</span>
+                    </div>
+                ))}
+
+                {/* Currently typing bubble */}
+                {typingMessage && (
+                    <div className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md">
+                    <span>{typingMessage}</span>
+                    <span className="animate-pulse">▍</span> {/* blinking cursor */}
+                    </div>
+                )}
+                </div>
           </div>
         )
       default:
