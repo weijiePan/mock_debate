@@ -98,7 +98,7 @@ export default function debate(){
                       console.log("starting");
                       console.log(userHistory);
                       changeUserHistory([...userHistory, userInput]);
-                      getRebuttal(userInput[userInput.length-1]).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
+                      getRebuttal(userInput[userInput.length-1], userHistory).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
                       getRating(userInput[userInput.length-1]).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
                     }
                 
@@ -177,7 +177,7 @@ export default function debate(){
 
       <div>
 
-        <div className="fixed inset-0 flex items-center justify-center z-1">
+        <div className="fixed inset-0 flex items-center justify-center z-20">
           <div className="w-120 h-180 rounded-xl border-4 border-black bg-white transition">
             {renderCurrent()}
           </div>
