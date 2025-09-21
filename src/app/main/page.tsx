@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import {X, Mic} from 'lucide-react';
 import {motion} from 'framer-motion'
 import { getRebuttal, getRating } from "./aiMessageUtil";
+import { b } from "framer-motion/client";
+
 
 export default function debate(){
   let [userInput, changeUserInput]:[string, Function] = useState(""); 
@@ -103,16 +105,21 @@ export default function debate(){
           <div>
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Judge</span>
-              <span className="text-3xl">Judge</span>
-              <div className = "judgeHistory">
-                {opponentHistory.map((name,value)=>
-                  <div>
-                    <p>{name}</p>
-                    <p>{value}</p>
-                  </div>
-                )}
+          
+            </div>
+            <div>
+              <div className = "judgeHistory">{
+                  judgeHistory.map(obj=>
+                    <div>
+                      <p>rhetoric:{obj.rhetoric}</p>
+                      <p>accuracy:{obj.accuracy}</p>
+                      <p>logic:{obj.logic}</p>
+                    </div>
+                    
+
+                  )
+                }
               </div>
-              
             </div>
           </div>
         )
