@@ -183,14 +183,14 @@ export default function debate(){
           </div>
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center !ml-100">
-          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black">
+        <div className="fixed inset-0 flex items-center justify-center !ml-100 z-5 pointer-events-none">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black pointer-events-auto">
 
           </div>
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center !ml-175 z-10">
-          <div onClick={clickRight} className="w-0 h-0 hover:translate-x-2 duration-200 transition-transform
+        <div className="fixed inset-0 flex items-center justify-center !ml-175 z-30 pointer-events-none">
+          <div onClick={clickRight} className="w-0 h-0 hover:translate-x-2 duration-200 transition-transform pointer-events-auto
             border-t-[20px] border-t-transparent
             border-b-[20px] border-b-transparent
             border-l-[30px] border-l-blue-500"> 
@@ -199,14 +199,14 @@ export default function debate(){
           </div>
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center !mr-100">
-          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black">
+        <div className="fixed inset-0 flex items-center justify-center !mr-100 z-5 pointer-events-none">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black pointer-events-auto">
 
           </div>
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center !mr-175 z-10">
-          <div onClick={clickLeft} className="w-0 h-0 hover:-translate-x-2 duration-200 transition-transform
+        <div className="fixed inset-0 flex items-center justify-center !mr-175 z-30 pointer-events-none">
+          <div onClick={clickLeft} className="w-0 h-0 hover:-translate-x-2 duration-200 transition-transform pointer-events-auto
             border-t-[20px] border-t-transparent
             border-b-[20px] border-b-transparent
             border-r-[30px] border-r-blue-500"> 
