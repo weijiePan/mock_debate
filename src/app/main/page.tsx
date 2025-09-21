@@ -68,7 +68,7 @@ export default function debate(){
             <div className="h-140 !p-2 !px-6 !mt-3 !space-y-2 overflow-y-auto ">
               {
 
-                array.map(text =>
+                userHistory.map(text =>
                   <div
                   className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
                   >
@@ -120,29 +120,19 @@ export default function debate(){
               <span className="text-3xl text-black">Judge</span>
           
             </div>
-            <div>
-              <div className = "judgeHistory">
-                {
-                  judgeHistory.map(obj=>
-                    <div>
-                      <div className = "rhetoric">
-                        <p>{`rhetoric: ${obj.rhetoric.score}`}</p>
-                        <p>{`explanation: ${obj.rhetoric.reasoning}`}</p>
-                      </div>
-                      <div className = "logic">
-                        <p>{`logic: ${obj.logic.score}`}</p>
-                        <p>{`explanation: ${obj.logic.reasoning}`}</p>
-                      </div>
-                      <div className = "accuracy">
-                        <p>{`logic: ${obj.accuracy.score}`}</p>
-                        <p>{`explanation: ${obj.accuracy.reasoning}`}</p>
-                      </div>
-                    </div>
-                    
+    
+              <div className="h-140 !p-2 !px-6 !mt-3 !space-y-2 overflow-y-auto ">
+              {
 
-                  )
-                }
-              </div>
+                judgeHistory.map(text =>
+                  <div
+                  className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
+                  >
+                  <span>{text}</span>
+                  </div>
+                )
+              }
+             
             </div>
           </div>
         )
@@ -152,6 +142,10 @@ export default function debate(){
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Opponent</span>
             </div>
+            <div className="flex justify-center">
+              <img src="/CharacterSprite.PNG"/>
+            </div>
+            
             <div className = "opponentHistory">
                {opponentHistory.map(text=><p>{text}</p>)}
               </div>
@@ -167,12 +161,6 @@ export default function debate(){
     
 
     <div className="min-h-screen bg-white">
-      
-      <div className="absolute top-5 right-5">
-        <button className="bg-black w-20 h-8 text-white rounded-xl">
-          History
-        </button>
-      </div>
 
 
       <div>
@@ -215,11 +203,6 @@ export default function debate(){
           </div>
         </div>
 
-        <div className="absolute top-15 right-5 !mx-auto">
-          <button className="bg-green-500 rounded-full w-32 h-10">
-            New debate
-          </button>
-        </div>
 
       </div>
     </div>
