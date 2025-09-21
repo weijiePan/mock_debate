@@ -14,24 +14,6 @@ export default function debate(){
 
   const [userId, setUserId] = useState('')
   const [history, setHistory] = useState(false)
-
-  useEffect(() => {
-    const checkUser = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session?.user) {
-        router.push("/login");
-        return;
-        }
-        setUserId(session.user.id);
-    };
-
-    checkUser();
-  }, [router]);
-    
-    
-    
-    
-    
     return(<>
 
         <div className="">
