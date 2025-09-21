@@ -6,11 +6,16 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {X, Mic} from 'lucide-react';
 import {motion} from 'framer-motion'
+import { getRebuttal } from "./aiMessageUtil";
 
 export default function debate(){
-  let [userInput, changeUserInput]:[string[], Function] = useState([]); 
-  let [aiOutput, changeAiOutput]:[string[], Function] = useState([]); 
+  let [userInput, changeUserInput]:[string, Function] = useState(""); 
+  let [opponentOutput, changeOpponentOutput]:[string, Function] = useState(""); 
+  let [judgeOutput, changeJudgeOutput]:[string, Function] = useState("");
     
+  let [userHistory, changeUserHistory]:[string[], Function] = useState([]); 
+  let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
+  let [judgeHistory, changeJudgeHistory]:[string[], Function] = useState([]);
   const router = useRouter();
 
   const [userId, setUserId] = useState('')
@@ -63,15 +68,24 @@ export default function debate(){
                 <div className="w-12 h-12 border-2 rounded-full !mr-2 flex justify-center items-center cursor-pointer">
                   <Mic />
                 </div>
-
-                <input 
+                <form>
+                  <input 
                 placeholder="Your argument here..."
                 className="border-2 w-60 h-12 rounded-full !p-4"
+                onChange={(e)=>{changeUserInput([e.target.value])}}
                 />
-                
+                {/*this is submit button */} 
                 <div className="w-12 h-12 border-2 rounded-full !ml-2 flex justify-center items-center cursor-pointer">
-                  <span className="-translate-y-0.5 text-xl">→</span>
-                </div>
+                    <span className="-translate-y-0.5 text-xl" onClick={(e)=>{
+                      console.log("starting");
+                      changeUserHistory([...userHistory, userInput]);
+                      getRebuttal(userInput[userInput.length-1]).then((text)=>{
+                        console.log(text);
+                      })
+                    }} >→</span>
+                  </div>
+                </form>
+                
               </div>
               
             </div>
@@ -82,6 +96,7 @@ export default function debate(){
           <div>
             <div className="flex justify-center !mt-5">
               <span className="text-3xl">Judge</span>
+              
             </div>
           </div>
         )
