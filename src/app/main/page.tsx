@@ -8,12 +8,15 @@ import {X, Mic} from 'lucide-react';
 import {motion} from 'framer-motion'
 import { getRebuttal, getRating } from "./aiMessageUtil";
 import { b } from "framer-motion/client";
+import useAudioInput from "../components/useAudioInput";
 
 
 export default function debate(){
   let [userInput, changeUserInput]:[string, Function] = useState(""); 
   let [opponentOutput, changeOpponentOutput]:[string, Function] = useState(""); 
   let [judgeOutput, changeJudgeOutput]:[string, Function] = useState("");
+
+  let{startRecorder, stopRecorder} = useAudioInput();
     
   let [userHistory, changeUserHistory]:[string[], Function] = useState([]); 
   let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
@@ -118,12 +121,22 @@ export default function debate(){
           
             </div>
             <div>
-              <div className = "judgeHistory">{
+              <div className = "judgeHistory">
+                {
                   judgeHistory.map(obj=>
                     <div>
-                      <p>rhetoric:{obj.rhetoric}</p>
-                      <p>accuracy:{obj.accuracy}</p>
-                      <p>logic:{obj.logic}</p>
+                      <div className = "rhetoric">
+                        <p>{`rhetoric: ${obj.rhetoric.score}`}</p>
+                        <p>{`explanation: ${obj.rhetoric.reasoning}`}</p>
+                      </div>
+                      <div className = "logic">
+                        <p>{`logic: ${obj.logic.score}`}</p>
+                        <p>{`explanation: ${obj.logic.reasoning}`}</p>
+                      </div>
+                      <div className = "accuracy">
+                        <p>{`logic: ${obj.accuracy.score}`}</p>
+                        <p>{`explanation: ${obj.accuracy.reasoning}`}</p>
+                      </div>
                     </div>
                     
 
@@ -141,7 +154,6 @@ export default function debate(){
             </div>
             <div className = "opponentHistory">
                {opponentHistory.map(text=><p>{text}</p>)}
-               
               </div>
           </div>
         )
