@@ -32,7 +32,7 @@ export default function Alternative() {
             <span className={`${playfair.className} text-2xl text-white`}>New chat</span>
           </button>
 
-          <button onClick={} className='border-2 w-40 h-12 border-black rounded-full bg-white hover:scale-110 transition cursor-pointer'>
+          <button  className='border-2 w-40 h-12 border-black rounded-full bg-white hover:scale-110 transition cursor-pointer'>
             <span className={`${playfair.className} text-xl text-black`}>About</span>
           </button>
         </div>
