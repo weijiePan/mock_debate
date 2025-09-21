@@ -4,7 +4,8 @@ import Textbox from "../components/Textbox";
 import { supabase } from "../../../supabase";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {X} from 'lucide-react';
+import {X, Mic} from 'lucide-react';
+import {motion} from 'framer-motion'
 
 export default function debate(){
   let [userInput, changeUserInput]:[string[], Function] = useState([]); 
@@ -14,7 +15,7 @@ export default function debate(){
 
   const [userId, setUserId] = useState('')
   const [history, setHistory] = useState(false)
-    
+  
     
     
     
@@ -32,7 +33,7 @@ export default function debate(){
               </div>
             
               <div className="block !ml-14">
-                <button onClick={() => setHistory(true)} className="bg-[#D9D9D9] rounded-full w-30 hover:opacity-70 transition !absolute !right-10">
+                <button onClick={() => setHistory(true)} className="bg-[#D9D9D9] rounded-full w-30 hover:opacity-70 transition !absolute !right-10 cursor-pointer">
                     <span className="text-[#2B2B2B] text-lg">History</span>
                 </button>
               </div>
@@ -46,7 +47,7 @@ export default function debate(){
             <div className="flex justify-center items-center ">
               
               <div className="!mr-2 w-12 h-12 rounded-full bg-[#2B2B2B] border-2 border-[#FFFFFF] text-white text-center font-bold flex justify-center items-center !ml-2 hover:opacity-70 transition cursor-pointer">
-                mic
+                <Mic />
               </div>
 
               <div className="">
@@ -63,9 +64,20 @@ export default function debate(){
               </div>
               
               {history && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-                    <div className="relative w-[400px] h-[300px] rounded-2xl bg-white p-6">
-                        <button
+                <motion.div 
+                className="fixed inset-0 flex items-center justify-center bg-black/50"
+                initial={{ opacity: 0 }}           // backdrop fades in
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                >
+                    
+                    <motion.div 
+                    initial={{ scale: 0.8, opacity: 0 }}     // start slightly smaller + hidden
+                    animate={{ scale: 1, opacity: 1 }}       // grow to full size
+                    exit={{ scale: 0.8, opacity: 0 }}        // optional exit animation
+                    transition={{ type: "tween", stiffness: 300, damping: 20 }}
+                    className="relative w-[400px] h-[300px] rounded-2xl bg-white p-6">
+                        <button 
                         onClick={() => setHistory(false)} // your close function
                         className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-200"
                         >
@@ -75,8 +87,8 @@ export default function debate(){
                         <div className="mt-8">
                         history stuff
                         </div>
-                    </div>
-                    </div>
+                    </motion.div>
+                </motion.div>
                 )}
               
             </div>
