@@ -31,6 +31,9 @@
     --foreground: #ededed;
   }
 }
+p{
+  color:black;
+}
 
 html,
 body {
