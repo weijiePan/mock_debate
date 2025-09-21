@@ -95,9 +95,14 @@ export default function debate(){
             }}>submit</button>
             
         </form>
+<<<<<<< HEAD
+        <Textbox text="Your new text here"></Textbox>
+        
+=======
         <Textbox text=""></Textbox>
         */
 }
+>>>>>>> refs/remotes/origin/master
     </>
     )
 }
