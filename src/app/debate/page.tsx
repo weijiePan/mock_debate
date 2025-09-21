@@ -118,7 +118,7 @@ export default function debate(){
         <Textbox text=""></Textbox>
         */
 }
->>>>>>> refs/remotes/origin/master
+
     </>
     )
 }
