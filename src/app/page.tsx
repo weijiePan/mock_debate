@@ -51,8 +51,8 @@ export default function Alternative() {
         <div id="target" className='!mt-5 flex justify-center'>
           <div className='w-4/5 flex items-center'>
             <img />
-            <span className={`${playfair.className} text-black text-xl !ml-auto`}>
-              First, pick a topic to debate about.
+            <span className={`${playfair.className} text-black text-xl `}>
+              1. First, pick a topic to debate about.
             </span>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Alternative() {
           <div className='w-4/5  flex items-center'>
             
             <span className={`${playfair.className} text-black text-xl`}>
-              Then, the AI will find relevant historical court cases and arguments to try and win against you.
+              2. Then, the AI will find relevant historical court cases and arguments to try and win against you.
             </span>
 
             <img />
@@ -73,7 +73,7 @@ export default function Alternative() {
             <img />
 
             <span className={`${playfair.className} text-black text-xl !ml-auto`}>
-              Finally, the judge will rate your perfomance in live time and show you the weaknesses of your argument.
+              3. Finally, the judge will rate your perfomance in live time and show you the weaknesses of your argument.
             </span>
 
             

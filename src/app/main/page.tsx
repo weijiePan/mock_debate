@@ -17,7 +17,7 @@ export default function debate(){
 
   let{startRecorder, stopRecorder, isRecordOn} = useAudioInput();
     
-  let [userHistory, changeUserHistory]:[string[], Function] = useState([]); 
+  let [userHistory, changeUserHistory]:[string[], Function] = useState<string[]>([]); 
   let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
   let [judgeHistory, changeJudgeHistory]:[any[], Function] = useState([]);
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function debate(){
   const [current, setCurrent] = useState('yourself')
   const [left, setLeft] = useState("judge")
   const [right, setRight] = useState("opponent")
-
+  
   const clickRight = () => {
     if (current == 'yourself') {
       setCurrent('opponent')
@@ -91,20 +91,13 @@ export default function debate(){
               <div className="mb-5 !pt-4 flex justify-center items-center">
                     
                 <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer" onClick={()=>{
-                    if(isRecordOn){
-                      changeUserInput(stopRecorder());
-                      
-
-                    }else{
-                      startRecorder();
-                      changeUserInput("");
-                    }
+                    
                   }}>
                   <Mic className="text-black" />
                 </div>
                   <input 
                 className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
-                value={userInput}
+                
                 onChange={(e)=>{changeUserInput(e.target.value)}}
                  
                 />
@@ -114,12 +107,11 @@ export default function debate(){
                   <span className="-translate-y-0.5 text-xl text-black"
                   onClick={(e)=>{
                       
-                      console.log("starting");
-                      console.log(userHistory);
-                      changeUserInput("");
+                      
                       changeUserHistory([...userHistory, userInput]);
-                      getRebuttal(userInput[userInput.length-1]).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
-                      getRating(userInput[userInput.length-1]).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
+                      console.log(userInput);
+                      getRebuttal(userInput).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
+                      getRating(userInput).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
                     }
                 
                 }
