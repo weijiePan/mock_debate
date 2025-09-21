@@ -38,8 +38,8 @@ export default function Alternative() {
         </div>
 
         <div className='flex justify-center !mt-10'>
-          <div className='w-200 h-120 border-2 border-black rounded-3xl'>
-            img
+          <div className='w-200 h-120'>
+            <img src="/argument.jpeg" className='border-2 border-black rounded-xl' />
           </div>
         </div>
 
