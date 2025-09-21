@@ -50,7 +50,7 @@ export default function debate(){
         return (
           <div>
             <div className="flex justify-center !mt-5">
-              <span className="text-3xl">Yourself</span>
+              <span className="text-3xl text-black">Yourself</span>
             </div>
 
 
@@ -60,17 +60,17 @@ export default function debate(){
               <div className="!mt-120 "></div>
 
               <div className="mb-5 flex justify-center">
-                <div className="w-12 h-12 border-2 rounded-full !mr-2 flex justify-center items-center cursor-pointer">
-                  <Mic />
+                <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer">
+                  <Mic className="text-black"/>
                 </div>
 
                 <input 
                 placeholder="Your argument here..."
-                className="border-2 w-60 h-12 rounded-full !p-4"
+                className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
                 />
                 
-                <div className="w-12 h-12 border-2 rounded-full !ml-2 flex justify-center items-center cursor-pointer">
-                  <span className="-translate-y-0.5 text-xl">→</span>
+                <div className="w-12 h-12 border-2 border-black rounded-full !ml-2 flex justify-center items-center cursor-pointer">
+                  <span className="-translate-y-0.5 text-xl text-black">→</span>
                 </div>
               </div>
               
@@ -81,7 +81,7 @@ export default function debate(){
         return (
           <div>
             <div className="flex justify-center !mt-5">
-              <span className="text-3xl">Judge</span>
+              <span className="text-3xl text-black">Judge</span>
             </div>
           </div>
         )
@@ -89,7 +89,7 @@ export default function debate(){
         return (
           <div>
             <div className="flex justify-center !mt-5">
-              <span className="text-3xl">Opponent</span>
+              <span className="text-3xl text-black">Opponent</span>
             </div>
           </div>
         )
@@ -102,7 +102,7 @@ export default function debate(){
 
     
 
-    <div className="">
+    <div className="min-h-screen bg-white">
       
       <div className="absolute top-5 right-5">
         <button className="bg-black w-20 h-8 text-white rounded-xl">
@@ -114,13 +114,13 @@ export default function debate(){
       <div>
 
         <div className="fixed inset-0 flex items-center justify-center z-1">
-          <div className="w-120 h-180 rounded-xl border-4 bg-white transition">
+          <div className="w-120 h-180 rounded-xl border-4 border-black bg-white transition">
             {renderCurrent()}
           </div>
         </div>
 
         <div className="fixed inset-0 flex items-center justify-center !ml-100">
-          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black">
 
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function debate(){
         </div>
 
         <div className="fixed inset-0 flex items-center justify-center !mr-100">
-          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4">
+          <div className="w-90 h-120 rounded-xl bg-gray-200 border-4 border-black">
 
           </div>
         </div>
