@@ -51,26 +51,37 @@ export default function debate(){
     }
   }
 
+  const array = ['hello', 'this is an important message', 'hello again', 'fjdisjijdsniufjhuid hfos jdaiofjjfjodhsijfhdsuijfhdsuifhdsui hujdfhujhdfjdhfjhdsjfhdsjfhudishnfujdsn h ujfhdufhdsuhfjdsfhkdshfjdsknbfdjsnfdjsbn ufhdsufhdsjnfkdsnfjkdsn fknds fkdsbfijndsijfbndsjibf jdks fkdsnf kjhsd fhsjdkhf', 'hfjdsnjfhdsjuahfnjdskafjudshfudsh uifhuid shfijdsjfhdsijfhdsjfdnsfkm nsdjf ndsjnfdjshf sjhn', 'f hfudjshfjudshfukdshfusdhfi bsdnjf ndsjubf sdujbfju dsbfj dsfkshjufhß', 'fds']
+
   const renderCurrent = () => {
     switch (current) {
       case "yourself":
         return (
           <div>
             <div className="flex justify-center !mt-5">
-              <span className="text-3xl text-black">Yourself</span>
+              <span className="text-3xl text-black">Your argument</span>
             </div>
 
+            <div className="h-140 !p-2 !px-6 !mt-3 !space-y-2 overflow-y-auto ">
+              {
 
+                array.map(text =>
+                  <div
+                  className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
+                  >
+                  <span>{text}</span>
+                  </div>
+                )
+              }
+             
+            </div>
+            
             <div className="flex flex-col justify-end ">
-              <div className = "userHistory">
-               {userHistory.map(text => <p>{text}</p>)}
-              </div>
 
-              <div className="mb-5 flex justify-center">
+              <div className="mb-5 !pt-4 flex justify-center items-center">
                 <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer">
                   <Mic className="text-black"/>
                 </div>
-                <form>
                   <input 
                 placeholder="Your argument here..."
                 className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
@@ -93,7 +104,6 @@ export default function debate(){
                   >→</span>
                 </div>
                 
-                </form>
                 
               </div>
               
