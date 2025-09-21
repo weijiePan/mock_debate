@@ -10,18 +10,26 @@ import { getRebuttal, getRating } from "./aiMessageUtil";
 import { b } from "framer-motion/client";
 import useAudioInput from "../components/useAudioInput";
 
-
 export default function debate(){
   let [userInput, changeUserInput]:[string, Function] = useState(""); 
   let [opponentOutput, changeOpponentOutput]:[string, Function] = useState(""); 
   let [judgeOutput, changeJudgeOutput]:[string, Function] = useState("");
 
-  let{startRecorder, stopRecorder} = useAudioInput();
+  let{startRecorder, stopRecorder, isRecordOn} = useAudioInput();
     
   let [userHistory, changeUserHistory]:[string[], Function] = useState([]); 
   let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
   let [judgeHistory, changeJudgeHistory]:[any[], Function] = useState([]);
   const router = useRouter();
+  let inp:any;
+  useEffect(()=>{
+    inp =  <input 
+
+                className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
+                value={userInput}
+                onChange={(e)=>{changeUserInput(e.target.value)}}
+                />
+  }, [userInput]);
 
   const [userId, setUserId] = useState('')
   const [history, setHistory] = useState(false)
@@ -121,14 +129,26 @@ export default function debate(){
             <div className="flex flex-col justify-end ">
 
               <div className="mb-5 !pt-4 flex justify-center items-center">
-                <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer">
-                  <Mic className="text-black"/>
+                    
+                <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer" onClick={()=>{
+                    if(isRecordOn){
+                      changeUserInput(stopRecorder());
+                      
+
+                    }else{
+                      startRecorder();
+                      changeUserInput("");
+                    }
+                  }}>
+                  <Mic className="text-black" />
                 </div>
                   <input 
-                placeholder="Your argument here..."
                 className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
-                onChange={(e)=>{changeUserInput([e.target.value])}}
+                value={userInput}
+                onChange={(e)=>{changeUserInput(e.target.value)}}
+                 
                 />
+                {inp}
                 
                 <div className="w-12 h-12 border-2 border-black rounded-full !ml-2 flex justify-center items-center cursor-pointer">
                   <span className="-translate-y-0.5 text-xl text-black"
@@ -136,6 +156,7 @@ export default function debate(){
                       
                       console.log("starting");
                       console.log(userHistory);
+                      changeUserInput("");
                       changeUserHistory([...userHistory, userInput]);
                       getRebuttal(userInput[userInput.length-1]).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
                       getRating(userInput[userInput.length-1]).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
