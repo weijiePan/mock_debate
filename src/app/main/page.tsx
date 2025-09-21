@@ -21,15 +21,6 @@ export default function debate(){
   let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
   let [judgeHistory, changeJudgeHistory]:[any[], Function] = useState([]);
   const router = useRouter();
-  let inp:any;
-  useEffect(()=>{
-    inp =  <input 
-
-                className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
-                value={userInput}
-                onChange={(e)=>{changeUserInput(e.target.value)}}
-                />
-  }, [userInput]);
 
   const [userId, setUserId] = useState('')
   const [history, setHistory] = useState(false)
@@ -37,37 +28,6 @@ export default function debate(){
   const [current, setCurrent] = useState('yourself')
   const [left, setLeft] = useState("judge")
   const [right, setRight] = useState("opponent")
-
-  const [displayedTexts, setDisplayedTexts] = useState<string[]>([]);
-  const [typingIndex, setTypingIndex] = useState(0); // char index in the current message
-
-   useEffect(() => {
-    console.log("using effect")
-    if (opponentHistory.length === 0) return;
-
-    const currentMessage = opponentHistory[opponentHistory.length - 1];
-
-    // if we already displayed all messages, start typing the latest
-    if (displayedTexts.length < opponentHistory.length) {
-      const interval = setInterval(() => {
-        setTypingIndex((prev) => {
-          if (prev < currentMessage.length) return prev + 1;
-
-          // finished typing: push full message to displayedTexts
-          clearInterval(interval);
-          setDisplayedTexts(opponentHistory);
-          console.log(opponentHistory)
-          return prev;
-        });
-      }, 40); // typing speed (ms per character)
-
-      return () => clearInterval(interval);
-    }
-  }, [opponentHistory, displayedTexts]);
-
-   const fullyTyped = displayedTexts.slice(0, -2);
-   const currentMsg = opponentHistory[displayedTexts.length - 1] || "";
-   const typingMessage = current.slice(0, typingIndex);
 
   const clickRight = () => {
     if (current == 'yourself') {
@@ -148,7 +108,7 @@ export default function debate(){
                 onChange={(e)=>{changeUserInput(e.target.value)}}
                  
                 />
-                {inp}
+                
                 
                 <div className="w-12 h-12 border-2 border-black rounded-full !ml-2 flex justify-center items-center cursor-pointer">
                   <span className="-translate-y-0.5 text-xl text-black"
@@ -239,22 +199,15 @@ export default function debate(){
               <img src="CharacterSprite.PNG" className="!translate-x-2"/>
             </div>
             <div className="h-70 !p-2 !px-6 !space-y-2 overflow-y-auto">
-                {fullyTyped.map((text, idx) => (
-                    <div
-                    key={idx}
-                    className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
-                    >
-                    <span>{text}</span>
-                    </div>
-                ))}
-
-                {/* Currently typing bubble */}
-                {typingMessage && (
-                    <div className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md">
-                    <span>{typingMessage}</span>
-                    <span className="animate-pulse">▍</span> {/* blinking cursor */}
-                    </div>
-                )}
+                {
+                  opponentHistory.map(text =>
+                  <div
+                  className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
+                  >
+                  <span>{text}</span>
+                  </div>
+                  )
+                }
                 </div>
           </div>
         )

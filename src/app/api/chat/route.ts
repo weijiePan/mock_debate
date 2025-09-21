@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 
 type Role = 'user' | 'assistant' | 'system'; 
 type Turn = {role: Role, content: string};
-const model = 'gpt-4o-mini'
+const model = 'gpt-GPT-4.1'
 
 const MAX_TURNS = 16;
 const RECENT_REBUTTALS: string[] = [];
