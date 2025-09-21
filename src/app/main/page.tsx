@@ -6,11 +6,16 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {X, Mic} from 'lucide-react';
 import {motion} from 'framer-motion'
+import { getRebuttal, getRating } from "./aiMessageUtil";
 
 export default function debate(){
-  let [userInput, changeUserInput]:[string[], Function] = useState([]); 
-  let [aiOutput, changeAiOutput]:[string[], Function] = useState([]); 
+  let [userInput, changeUserInput]:[string, Function] = useState(""); 
+  let [opponentOutput, changeOpponentOutput]:[string, Function] = useState(""); 
+  let [judgeOutput, changeJudgeOutput]:[string, Function] = useState("");
     
+  let [userHistory, changeUserHistory]:[string[], Function] = useState([]); 
+  let [opponentHistory, changeOpponentHistory]:[string[], Function] = useState([]); 
+  let [judgeHistory, changeJudgeHistory]:[any[], Function] = useState([]);
   const router = useRouter();
 
   const [userId, setUserId] = useState('')
@@ -55,23 +60,39 @@ export default function debate(){
 
 
             <div className="flex flex-col justify-end ">
-              
-
-              <div className="!mt-120 "></div>
+              <div className = "userHistory">
+               {userHistory.map(text => <p>{text}</p>)}
+              </div>
 
               <div className="mb-5 flex justify-center">
                 <div className="w-12 h-12 border-2 border-black rounded-full !mr-2 flex justify-center items-center cursor-pointer">
                   <Mic className="text-black"/>
                 </div>
-
-                <input 
+                <form>
+                  <input 
                 placeholder="Your argument here..."
                 className="border-2 border-black w-60 h-12 rounded-full !p-4 text-gray-800"
+                onChange={(e)=>{changeUserInput([e.target.value])}}
                 />
                 
                 <div className="w-12 h-12 border-2 border-black rounded-full !ml-2 flex justify-center items-center cursor-pointer">
-                  <span className="-translate-y-0.5 text-xl text-black">→</span>
+                  <span className="-translate-y-0.5 text-xl text-black"
+                  onClick={(e)=>{
+                      
+                      console.log("starting");
+                      console.log(userHistory);
+                      changeUserHistory([...userHistory, userInput]);
+                      getRebuttal(userInput[userInput.length-1]).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
+                      getRating(userInput[userInput.length-1]).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
+                    }
+                
+                }
+                    
+                  >→</span>
                 </div>
+                
+                </form>
+                
               </div>
               
             </div>
@@ -82,6 +103,16 @@ export default function debate(){
           <div>
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Judge</span>
+              <span className="text-3xl">Judge</span>
+              <div className = "judgeHistory">
+                {opponentHistory.map((name,value)=>
+                  <div>
+                    <p>{name}</p>
+                    <p>{value}</p>
+                  </div>
+                )}
+              </div>
+              
             </div>
           </div>
         )
@@ -91,6 +122,10 @@ export default function debate(){
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Opponent</span>
             </div>
+            <div className = "opponentHistory">
+               {opponentHistory.map(text=><p>{text}</p>)}
+               
+              </div>
           </div>
         )
       default:
