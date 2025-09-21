@@ -23,16 +23,16 @@ export async function POST(request: Request) {
 
     const system: Turn = {
         role: "system",
-        content: `You are a debate judge that is completely unbiased. Rate the user's argument on a scale of 1 to 10 in three categories:
+        content: `You are a debate judge that is completely unbiased. Rate the user's argument on a scale of 1 to 10 in three categories and then explain your reasoning for the rating:
         - rhetoric (clarity and persuasiveness of style)
         - accuracy (factual correctness and use of evidence)
         - logic (soundness and consistency of reasoning)
 
         Respond ONLY with a valid JSON object, no text outside JSON, exactly in this shape:
         {
-            "rhetoric": number,
-            "accuracy": number,
-            "logic": number
+            "rhetoric": {"score": number, "reasoning": string}, 
+            "accuracy": {"score": number, "reasoning": reasoning},
+            "logic": {"score": number, "reasoning": reasoning}
         }`,
     };
 
