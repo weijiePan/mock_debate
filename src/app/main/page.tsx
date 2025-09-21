@@ -98,7 +98,7 @@ export default function debate(){
                       console.log("starting");
                       console.log(userHistory);
                       changeUserHistory([...userHistory, userInput]);
-                      getRebuttal(userInput[userInput.length-1], userHistory).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
+                      getRebuttal(userInput[userInput.length-1]).then((text)=>{changeOpponentHistory([...opponentHistory, text])});
                       getRating(userInput[userInput.length-1]).then((obj)=>{changeJudgeHistory([...judgeHistory, obj])});
                     }
                 
@@ -120,19 +120,29 @@ export default function debate(){
               <span className="text-3xl text-black">Judge</span>
           
             </div>
-    
-              <div className="h-140 !p-2 !px-6 !mt-3 !space-y-2 overflow-y-auto ">
-              {
+            <div>
+              <div className = "judgeHistory">
+                {
+                  judgeHistory.map(obj=>
+                    <div>
+                      <div className = "rhetoric">
+                        <p>{`rhetoric: ${obj.rhetoric.score}`}</p>
+                        <p>{`explanation: ${obj.rhetoric.reasoning}`}</p>
+                      </div>
+                      <div className = "logic">
+                        <p>{`logic: ${obj.logic.score}`}</p>
+                        <p>{`explanation: ${obj.logic.reasoning}`}</p>
+                      </div>
+                      <div className = "accuracy">
+                        <p>{`logic: ${obj.accuracy.score}`}</p>
+                        <p>{`explanation: ${obj.accuracy.reasoning}`}</p>
+                      </div>
+                    </div>
+                    
 
-                judgeHistory.map(text =>
-                  <div
-                  className="max-w-[100%] bg-blue-500 text-white !px-4 !py-2 rounded-2xl shadow-md"
-                  >
-                  <span>{text}</span>
-                  </div>
-                )
-              }
-             
+                  )
+                }
+              </div>
             </div>
           </div>
         )
@@ -142,10 +152,6 @@ export default function debate(){
             <div className="flex justify-center !mt-5">
               <span className="text-3xl text-black">Opponent</span>
             </div>
-            <div className="flex justify-center">
-              <img src="/CharacterSprite.PNG"/>
-            </div>
-            
             <div className = "opponentHistory">
                {opponentHistory.map(text=><p>{text}</p>)}
               </div>
@@ -165,7 +171,7 @@ export default function debate(){
 
       <div>
 
-        <div className="fixed inset-0 flex items-center justify-center z-20">
+        <div className="fixed inset-0 flex items-center justify-center z-1">
           <div className="w-120 h-180 rounded-xl border-4 border-black bg-white transition">
             {renderCurrent()}
           </div>
